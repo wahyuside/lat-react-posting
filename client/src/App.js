@@ -12,7 +12,7 @@ import Login from "./component/login";
 
 function App() {
   return (
-    <div className="container-fluid">
+    <div>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">
@@ -55,8 +55,7 @@ function App() {
           </div>
         </div>
       </nav>
-
-      <div className="container-fluid">
+      <div className="container-fluid mt-2">
         <div className="Container">
           {/* <Home></Home>
           <About></About> */}

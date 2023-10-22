@@ -16,23 +16,19 @@ const Posting = () => {
   const [post, setPost] = useState("");
   const [postList, setPostList] = useState("");
 
-  //   const getPostList = () => {
-  //     axios({
-  //       method: "GET",
-  //       url: "http://localhost:3500/posts",
-  //     })
-  //       .then((result) => {
-  //         setPostList(result.data);
-  //         console.log(result.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
-
-  //   useEffect(() => {
-  //     getPostList();
-  //   }, []);
+  const getPostList = () => {
+    axios({
+      method: "GET",
+      url: "http://localhost:3500/posts",
+    })
+      .then((pl) => {
+        setPostList(pl.data);
+        console.log(pl.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const onSubmit = async (data1) => {
     setPost(data1);
@@ -46,6 +42,10 @@ const Posting = () => {
   };
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getPostList();
+  }, []);
 
   return (
     <div className="container">
@@ -113,7 +113,7 @@ const Posting = () => {
         </button>
       </form>
       <p>Data: {JSON.stringify(post)}</p>
-      {/* <div>
+      <div>
         <h3>List Posting</h3>
         <table className="table">
           <thead>
@@ -125,7 +125,7 @@ const Posting = () => {
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
+          {/* <tbody>
             {postList.map((x) => {
               const { id, title, content, userId } = x;
               return (
@@ -147,9 +147,9 @@ const Posting = () => {
                 </tr>
               );
             })}
-          </tbody>
+          </tbody> */}
         </table>
-      </div> */}
+      </div>
     </div>
   );
 };
