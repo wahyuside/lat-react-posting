@@ -3,6 +3,16 @@ const { posts, users } = require("../models");
 class PostController {
   static async getPosts(req, res) {
     try {
+      let result = await posts.findAll();
+      console.log(result);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json("Error " + error);
+    }
+  }
+
+  static async getPosted(req, res) {
+    try {
       let result = await posts.findAll({ where: { status: 1 } });
       console.log(result);
       res.status(200).json(result);
