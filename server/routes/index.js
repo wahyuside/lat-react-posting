@@ -7,8 +7,9 @@ route.get("/", (req, res) => {
 });
 
 const userRoutes = require("./user");
-// const postRoutes] = require("./post");
+const postRoutes = require("./post");
 
 route.use("/users", userRoutes);
+route.use("/posts", postRoutes);
 
 module.exports = route;
