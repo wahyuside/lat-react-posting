@@ -9,8 +9,7 @@ import {
   MdStickyNote2,
   MdDeleteOutline,
   MdOutlineModeEdit,
-  MdLibraryAdd,
-  MdRemoveRedEye,
+  MdAdd,
 } from "react-icons/md";
 
 const Home = () => {
@@ -32,14 +31,42 @@ const Home = () => {
       });
   };
 
+  const deleteHandler = async (id) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axios({
+            method: "DELETE",
+            url: `http://localhost:3500/posts/deletepost/${id}`,
+          });
+          getPosts();
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getPosts();
   }, []);
 
   return (
     <div className="container">
-      <h3>Home Page</h3>
-      <a href="#">Add Post</a>
+      <h3>Home Page / Public Posted</h3>
+      <a href="/posting">
+        <MdAdd />
+        Add Post
+      </a>
       {/* versi table */}
       {/* <table className="table">
         <thead>
@@ -74,7 +101,7 @@ const Home = () => {
       {posts.map((x) => {
         const { id, title, content, userId } = x;
         return (
-          <div class="card" key={id}>
+          <div class="card mt-3 mb-3" key={id}>
             <div class="card-body">
               <h5 class="card-title">
                 <MdStickyNote2 />
@@ -84,10 +111,15 @@ const Home = () => {
                 <MdPerson2 /> User {userId}
               </h6>
               <p class="card-text">{content}</p>
-              <a href="#" className="card-link">
+              <a
+                className="card-link"
+                onClick={() => navigate(`posting/${id}`)}
+              >
+                <MdOutlineModeEdit />
                 Update
               </a>
-              <a href="#" className="card-link">
+              <a className="card-link" onClick={() => deleteHandler(id)}>
+                <MdDeleteOutline />
                 Delete
               </a>
             </div>
