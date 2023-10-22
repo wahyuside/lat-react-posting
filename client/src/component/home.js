@@ -17,10 +17,10 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const getPosts = () => {
+  const getPosted = () => {
     axios({
       method: "GET",
-      url: "http://localhost:3500/posts",
+      url: "http://localhost:3500/posts/posted",
     })
       .then((result) => {
         setPosts(result.data);
@@ -47,7 +47,7 @@ const Home = () => {
             method: "DELETE",
             url: `http://localhost:3500/posts/deletepost/${id}`,
           });
-          getPosts();
+          getPosted();
           Swal.fire("Deleted!", "Your file has been deleted.", "success");
         }
       });
@@ -57,7 +57,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getPosts();
+    getPosted();
   }, []);
 
   return (

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { MdClose, MdRefresh, MdSave } from "react-icons/md";
+import { MdClose, MdRefresh, MdSave, MdDeleteOutline } from "react-icons/md";
 
 const Posting = () => {
   const {
@@ -14,6 +14,25 @@ const Posting = () => {
   } = useForm();
 
   const [post, setPost] = useState("");
+  const [postList, setPostList] = useState("");
+
+  //   const getPostList = () => {
+  //     axios({
+  //       method: "GET",
+  //       url: "http://localhost:3500/posts",
+  //     })
+  //       .then((result) => {
+  //         setPostList(result.data);
+  //         console.log(result.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
+
+  //   useEffect(() => {
+  //     getPostList();
+  //   }, []);
 
   const onSubmit = async (data1) => {
     setPost(data1);
@@ -72,18 +91,18 @@ const Posting = () => {
           </select>
           <br></br>
         </div>
-        <button type="submit" class="btn btn-success" id="btnSubmit">
+        <button type="submit" class="btn btn-success me-2" id="btnSubmit">
           <MdSave />
           Submit
         </button>
-        <button
+        {/* <button
           onClick={() => navigate("/posting")}
-          class="btn btn-primary"
+          class="btn btn-primary me-2"
           id="btnReset"
         >
           <MdRefresh />
           Reset
-        </button>
+        </button> */}
         <button
           onClick={() => navigate("/")}
           class="btn btn-danger"
@@ -94,6 +113,43 @@ const Posting = () => {
         </button>
       </form>
       <p>Data: {JSON.stringify(post)}</p>
+      {/* <div>
+        <h3>List Posting</h3>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Title</th>
+              <th>Content</th>
+              <th>User Id</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {postList.map((x) => {
+              const { id, title, content, userId } = x;
+              return (
+                <tr key={id}>
+                  <td>{id}</td>
+                  <td>{title}</td>
+                  <td>{content}</td>
+                  <td>{userId}</td>
+                  <td>
+                    <button className="btn btn-sm btn-warning">
+                      <MdRefresh />
+                      Update
+                    </button>
+                    <button className="btn btn-sm btn-danger">
+                      <MdDeleteOutline />
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div> */}
     </div>
   );
 };
