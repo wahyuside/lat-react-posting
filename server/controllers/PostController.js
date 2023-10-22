@@ -3,7 +3,7 @@ const { posts, users } = require("../models");
 class PostController {
   static async getPosts(req, res) {
     try {
-      let result = await posts.findAll();
+      let result = await posts.findAll({ where: { status: 1 } });
       console.log(result);
       res.status(200).json(result);
     } catch (error) {
@@ -68,7 +68,7 @@ class PostController {
     try {
       let id = +req.params.id;
 
-      const result = await posts.findByPk(id);
+      const result = await posts.findByPk(id, { include: [{ model: users }] });
 
       result
         ? res.status(200).json(result)

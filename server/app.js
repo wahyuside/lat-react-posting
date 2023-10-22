@@ -10,8 +10,8 @@ app.use(
   })
 );
 
-// const cors = require("cors");
-// app.use(cors());
+const cors = require("cors");
+app.use(cors());
 
 const routes = require("./routes");
 app.use(routes);
